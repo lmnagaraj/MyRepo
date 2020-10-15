@@ -1,0 +1,32 @@
+request.get("kag").text
+
+print(soup.prettify())
+soup.title
+soup.title.string
+soup.title.text
+
+soup.div
+or
+soup.find('div')
+soup.find_all('div')
+
+soup.find('div', class_="class name")
+
+art1 = soup.find_all('div', class_="article")[0]
+art1.a
+art1.h2
+art1.h2.a
+art1.h2.a.text
+
+art1.p
+art1.p.text
+
+Class = Public/private - Attr and mothod - 3
+isinstance, issubclass
+Decorator - 1
+Classmethod & Staticmethod - 2 
+MRO - 4 
+Metaprogramming - 5
+htmp scratch - last
+try/except/finally Raise - 0 
+Property - if time permits

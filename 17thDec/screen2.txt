@@ -1,0 +1,570 @@
+Last login: Wed Dec 12 20:56:52 on ttys000
+raj:~ nagee$ 
+raj:~ nagee$ 
+raj:~ nagee$ 
+raj:~ nagee$ cd python
+raj:python nagee$ ls
+MyRepo			cook			person.py		setuptools-33.1.1.zip
+child			lesson			person.pyc
+class_12dec		metaprogramming		python
+raj:python nagee$ ls -ltr
+total 1408
+-rw-r--r--   1 root   staff  702770 Mar 29  2017 setuptools-33.1.1.zip
+-rw-r--r--   1 nagee  staff     232 Mar 29  2017 person.py
+-rw-r--r--   1 nagee  staff     689 Mar 29  2017 person.pyc
+-rw-r--r--   1 nagee  staff     243 Mar 29  2017 child
+drwxr-xr-x  12 nagee  staff     408 Jul  9  2017 python
+drwxr-xr-x   6 nagee  staff     204 Jul 17  2017 lesson
+drwxr-xr-x   8 nagee  staff     272 Feb 16  2018 metaprogramming
+-rw-r--r--   1 nagee  staff     418 Feb 25  2018 cook
+drwxr-xr-x  26 nagee  staff     884 Mar 17  2018 MyRepo
+drwxr-xr-x   4 root   staff     136 Dec 12 20:55 class_12dec
+raj:python nagee$ cd class_12dec/
+raj:class_12dec nagee$ ls -ltr
+total 16
+-rw-r--r--  1 root  staff  194 Dec 12 20:47 slots
+-rw-r--r--  1 root  staff  179 Dec 12 20:55 inheritance
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ clear
+
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ cat inheritance 
+class One():
+     def __init__(self, name):
+             self.name = name
+     def base_class(self):
+             print("My name is {}" .format(self.name))
+
+class Two(One):
+	pass
+raj:class_12dec nagee$ python3 -i inheritance 
+>>> a = One("parent_class")
+>>> b = Two()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: __init__() missing 1 required positional argument: 'name'
+>>> b = Two("Child"))
+  File "<stdin>", line 1
+    b = Two("Child"))
+                    ^
+SyntaxError: invalid syntax
+>>> b = Two("Child")
+>>> b.name
+'Child'
+>>> b.base_class()
+My name is Child
+>>> exit()
+raj:class_12dec nagee$ ls -ltr
+total 16
+-rw-r--r--  1 root  staff  194 Dec 12 20:47 slots
+-rw-r--r--  1 root  staff  179 Dec 12 20:55 inheritance
+raj:class_12dec nagee$ vi inheritance 
+raj:class_12dec nagee$ id
+uid=501(nagee) gid=20(staff) groups=20(staff),402(com.apple.sharepoint.group.1),12(everyone),61(localaccounts),79(_appserverusr),80(admin),81(_appserveradm),98(_lpadmin),701(com.apple.sharepoint.group.2),702(com.apple.sharepoint.group.3),33(_appstore),100(_lpoperator),204(_developer),395(com.apple.access_ftp),398(com.apple.access_screensharing),399(com.apple.access_ssh-disabled)
+raj:class_12dec nagee$ sudo bash
+Password:
+bash-3.2# 
+bash-3.2# 
+bash-3.2# ls -ltr
+total 16
+-rw-r--r--  1 root  staff  194 Dec 12 20:47 slots
+-rw-r--r--  1 root  staff  179 Dec 12 20:55 inheritance
+bash-3.2# vi inheritance 
+bash-3.2# 
+bash-3.2# 
+bash-3.2# cat inheritance 
+class One():
+     def __init__(self, name):
+             self.name = name
+     def base_class(self):
+             print("My name is {}" .format(self.name))
+
+class Two(One):
+	def print_class(self):
+		print("class {}" .format(cls))
+bash-3.2# python3 -i inheritance 
+>>> two = base_class()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'base_class' is not defined
+>>> two = Two("akjgh")
+>>> two.print_class
+<bound method Two.print_class of <__main__.Two object at 0x1011bf940>>
+>>> two.print_class()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "inheritance", line 9, in print_class
+    print("class {}" .format(cls))
+NameError: name 'cls' is not defined
+>>> dir(two)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'base_class', 'name', 'print_class']
+>>> exit()
+bash-3.2# vi inheritance 
+bash-3.2# python3 -i inheritance 
+  File "inheritance", line 9
+    def print_class(cls)):
+                        ^
+SyntaxError: invalid syntax
+>>> dir(two)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'two' is not defined
+>>> exit()
+bash-3.2# vi inheritance 
+bash-3.2# python3 -i inheritance 
+>>> a = One("naga")
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'base_class', 'name']
+>>> a.__class__
+<class '__main__.One'>
+>>> b = Two("raj")
+>>> dir(b)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'base_class', 'name', 'print_class']
+>>> b.print_class()
+class <class '__main__.Two'>
+>>> exit()
+bash-3.2# 
+bash-3.2# 
+bash-3.2# vi inheritance 
+bash-3.2# vi inheritance 
+bash-3.2# vi inher
+bash-3.2# cat inher
+class Parent():
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+	def print_class(self):
+		print(" I am called from the class of {}" .format(self.__class__)"
+
+class Child(Parent):
+	pass
+bash-3.2# python3 -i inher
+  File "inher", line 6
+    print(" I am called from the class of {}" .format(self.__class__)"
+                                                                     ^
+SyntaxError: EOL while scanning string literal
+>>> exit()
+bash-3.2# vi inher
+bash-3.2# python3 -i inher
+>>> a = Parent()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: __init__() missing 2 required positional arguments: 'name' and 'age'
+>>> a = Parent("naga", 30)
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'age', 'name', 'print_class']
+>>> a.__class__
+<class '__main__.Parent'>
+>>> a.name
+'naga'
+>>> a.age
+30
+>>> a.print_class
+<bound method Parent.print_class of <__main__.Parent object at 0x1011bfa90>>
+>>> a.print_class()
+ I am called from the class of <class '__main__.Parent'>
+>>> b = Child()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: __init__() missing 2 required positional arguments: 'name' and 'age'
+>>> class Dummy():
+...     pass
+... 
+>>> x = Dummy()
+>>> b = Child("child", 20)
+>>> b.name
+'child'
+>>> b.age
+20
+>>> b.print_class()
+ I am called from the class of <class '__main__.Child'>
+>>> a.print_class()
+ I am called from the class of <class '__main__.Parent'>
+>>> exit()
+bash-3.2# vi inher
+bash-3.2# python3 -i inher
+>>> exit()
+bash-3.2# clear
+
+bash-3.2# 
+bash-3.2# 
+bash-3.2# cat inher
+class Parent():
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+	def print_class(self):
+		print(" I am called from the class of {}" .format(self.__class__))
+
+class Child(Parent):
+	def __init__(self, lastname, student_no):
+		self.lastname = lastname
+		self.student_no = student_no
+bash-3.2# python3 -i inher
+>>> a = Parent("naga", 20)
+>>> b = Child("manokaran", 123445)
+>>> b.lastname
+'manokaran'
+>>> b.name
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'Child' object has no attribute 'name'
+>>> b.lastname
+'manokaran'
+>>> b.print_class()
+ I am called from the class of <class '__main__.Child'>
+>>> exit()
+bash-3.2# vi inher
+bash-3.2# 
+bash-3.2# cat inher
+class Parent():
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+	def print_class(self):
+		print(" I am called from the class of {}" .format(self.__class__))
+
+class Child(Parent):
+	def __init__(self, lastname, student_no):
+		self.lastname = lastname
+		self.student_no = student_no
+		super().__init__(name, age)
+bash-3.2# python3 -i inher
+>>> b = Child("Manokaran", 23452345)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "inher", line 12, in __init__
+    super().__init__(name, age)
+NameError: name 'name' is not defined
+>>> exit()
+bash-3.2# vi inher
+bash-3.2# cat inher
+class Parent():
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+	def print_class(self):
+		print(" I am called from the class of {}" .format(self.__class__))
+
+class Child(Parent):
+	def __init__(self, lastname, student_no, name, age):
+		self.lastname = lastname
+		self.student_no = student_no
+		super().__init__(name, age)
+bash-3.2# python3 -i inher
+>>> b = Child("manokaran", 767567, "nagarajan", 30)
+>>> b.name
+'nagarajan'
+>>> b.age
+30
+>>> b.print_class()
+ I am called from the class of <class '__main__.Child'>
+>>> exit()
+bash-3.2# vi inher
+bash-3.2# 
+bash-3.2# 
+bash-3.2# python
+Python 2.7.10 (default, Oct 23 2015, 19:19:21) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.0 (clang-700.0.59.5)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> 
+>>> def naga(x, y):
+...     print(x, y)
+... 
+>>> def raj(a):
+...     naga(x, y)
+... 
+>>> raj(10)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in raj
+NameError: global name 'x' is not defined
+>>> def raj(a, x, y):
+...     naga(x, y)
+... 
+>>> raj(10, 2, 3)
+(2, 3)
+>>> exit()
+bash-3.2# vi inher
+bash-3.2# vi inher
+bash-3.2# which python3
+/Library/Frameworks/Python.framework/Versions/3.6/bin/python3
+bash-3.2# brew install
+^C
+bash-3.2# vi inher
+bash-3.2# 
+bash-3.2# 
+bash-3.2# python =i inher
+bash-3.2# cat inher
+class Parent():
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+	def print_class(self):
+		print(" I am called from the class of {}" .format(self.__class__))
+
+class Child(Parent):
+	def __init__(self, lastname, student_no, name, age):
+		self.lastname = lastname
+		self.student_no = student_no
+		Parent.__init__(self, name, age)
+		#super().__init__(name, age)
+pbash-3.2# python -i inher
+>>> b = Child("asgjk", 3, 4, 5)
+>>> a.name
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'a' is not defined
+>>> b.name
+4
+>>> b.age
+5
+>>> b.lastname
+'asgjk'
+>>> exit()
+bash-3.2# 
+bash-3.2# 
+bash-3.2# vi /tmp/naga
+bash-3.2# ls -ltr
+total 24
+-rw-r--r--  1 root  staff  194 Dec 12 20:47 slots
+-rw-r--r--  1 root  staff  243 Dec 12 21:08 inheritance
+-rw-r--r--  1 root  staff  377 Dec 12 21:42 inher
+bash-3.2# cat slots 
+class Film():
+    __slots__ = [ "name", "genre" ]
+    def __init__(self, name, genre):
+            self.name = name
+            self.genre = genre
+
+a = Film("2.0", "scify")
+a.section = "dramma"
+bash-3.2# cat inher
+class Parent():
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+	def print_class(self):
+		print(" I am called from the class of {}" .format(self.__class__))
+
+class Child(Parent):
+	def __init__(self, lastname, student_no, name, age):
+		self.lastname = lastname
+		self.student_no = student_no
+		Parent.__init__(self, name, age)
+		#super().__init__(name, age)
+bash-3.2# cat inher
+inher        inheritance  
+bash-3.2# cat inheritance 
+class One():
+     def __init__(self, name):
+             self.name = name
+     def base_class(self):
+             print("My name is {}" .format(self.name))
+
+class Two(One):
+	@classmethod
+	def print_class(cls):
+		print("class {}" .format(cls))
+bash-3.2# ps -ef | grep -i chrome
+  501   404     1   0  8:03PM ??         0:00.75 /Applications/Google Chrome.app/Contents/Versions/70.0.3538.110/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=service
+  501  1190     1   0  9:40PM ??         0:08.49 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+  501  1194     1   0  9:40PM ??         0:00.03 /Applications/Google Chrome.app/Contents/Versions/70.0.3538.110/Google Chrome Framework.framework/Helpers/crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/nagee/Library/Application Support/Google/Chrome/Crashpad --metrics-dir=/Users/nagee/Library/Application Support/Google/Chrome --url=https://clients2.google.com/cr/report --annotation=channel= --annotation=plat=OS X --annotation=prod=Chrome_Mac --annotation=ver=70.0.3538.110 --handshake-fd=10
+  501  1197     1   0  9:40PM ??         0:00.03 /Applications/Google Chrome.app/Contents/Versions/70.0.3538.110/Google Chrome Framework.framework/Versions/A/XPCServices/AlertNotificationService.xpc/Contents/MacOS/AlertNotificationService
+  501  1206  1190   0  9:40PM ??         0:00.42 /Applications/Google Chrome.app/Contents/Versions/70.0.3538.110/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=renderer --field-trial-handle=7586698274613986765,17000196472823413637,131072 --service-pipe-token=1857507697818102696 --lang=en-US --metrics-client-id=906d2080-eae0-4e6d-a2cc-46c9c9eceb20 --instant-process --enable-offline-auto-reload --enable-offline-auto-reload-visible-only --num-raster-threads=1 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --service-request-channel-token=1857507697818102696 --renderer-client-id=6 --no-v8-untrusted-code-mitigations --seatbelt-client=86
+  501  1211  1190   0  9:40PM ??         0:00.19 /Applications/Google Chrome.app/Contents/Versions/70.0.3538.110/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=renderer --field-trial-handle=7586698274613986765,17000196472823413637,131072 --disable-gpu-compositing --service-pipe-token=13746288369199309970 --lang=en-US --metrics-client-id=906d2080-eae0-4e6d-a2cc-46c9c9eceb20 --enable-offline-auto-reload --enable-offline-auto-reload-visible-only --num-raster-threads=1 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --service-request-channel-token=13746288369199309970 --renderer-client-id=8 --no-v8-untrusted-code-mitigations --seatbelt-client=98
+  501  1212  1190   0  9:40PM ??         0:00.36 /Applications/Google Chrome.app/Contents/Versions/70.0.3538.110/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=renderer --field-trial-handle=7586698274613986765,17000196472823413637,131072 --disable-gpu-compositing --service-pipe-token=13129459819997129941 --lang=en-US --metrics-client-id=906d2080-eae0-4e6d-a2cc-46c9c9eceb20 --extension-process --enable-offline-auto-reload --enable-offline-auto-reload-visible-only --num-raster-threads=1 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --service-request-channel-token=13129459819997129941 --renderer-client-id=3 --no-v8-untrusted-code-mitigations --seatbelt-client=47
+  501  1213  1190   0  9:40PM ??         0:00.38 /Applications/Google Chrome.app/Contents/Versions/70.0.3538.110/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=renderer --field-trial-handle=7586698274613986765,17000196472823413637,131072 --disable-gpu-compositing --service-pipe-token=17525855568748345198 --lang=en-US --metrics-client-id=906d2080-eae0-4e6d-a2cc-46c9c9eceb20 --extension-process --enable-offline-auto-reload --enable-offline-auto-reload-visible-only --num-raster-threads=1 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --service-request-channel-token=17525855568748345198 --renderer-client-id=4 --no-v8-untrusted-code-mitigations --seatbelt-client=47
+  501  1216  1190   0  9:40PM ??         0:00.15 /Applications/Google Chrome.app/Contents/Versions/70.0.3538.110/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=renderer --field-trial-handle=7586698274613986765,17000196472823413637,131072 --disable-gpu-compositing --service-pipe-token=11144056702716762566 --lang=en-US --metrics-client-id=906d2080-eae0-4e6d-a2cc-46c9c9eceb20 --enable-offline-auto-reload --enable-offline-auto-reload-visible-only --num-raster-threads=1 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --service-request-channel-token=11144056702716762566 --renderer-client-id=9 --no-v8-untrusted-code-mitigations --seatbelt-client=51
+    0  1263  1098   0  9:48PM ttys001    0:00.00 grep -i chrome
+bash-3.2# pkill chrome
+bash-3.2# pkill Chrome.app
+bash-3.2# 
+bash-3.2# 
+bash-3.2# 
+  [Restored 13 Dec 2018, 7:33:52 PM]
+Last login: Thu Dec 13 19:29:56 on console
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ df -k
+Filesystem    1024-blocks      Used Available Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2    371528724 354576088  16696636    96% 88708020  4174159   96%   /
+devfs                 185       185         0   100%      646        0  100%   /dev
+/dev/disk0s4     96352140    208728  96143412     1%    52180 24035853    0%   /Volumes/Untitled 1 2
+map -hosts              0         0         0   100%        0        0  100%   /net
+map auto_home           0         0         0   100%        0        0  100%   /home
+raj:class_12dec nagee$ df -k
+Filesystem    1024-blocks      Used Available Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2    371528724 354525516  16747208    96% 88695377  4186802   95%   /
+devfs                 185       185         0   100%      646        0  100%   /dev
+/dev/disk0s4     96352140    208728  96143412     1%    52180 24035853    0%   /Volumes/Untitled 1 2
+map -hosts              0         0         0   100%        0        0  100%   /net
+map auto_home           0         0         0   100%        0        0  100%   /home
+raj:class_12dec nagee$ df -k
+Filesystem    1024-blocks      Used Available Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2    371528724 341368584  29904140    92% 85406144  7476035   92%   /
+devfs                 185       185         0   100%      646        0  100%   /dev
+/dev/disk0s4     96352140    208728  96143412     1%    52180 24035853    0%   /Volumes/Untitled 1 2
+map -hosts              0         0         0   100%        0        0  100%   /net
+map auto_home           0         0         0   100%        0        0  100%   /home
+raj:class_12dec nagee$ df -k
+Filesystem    1024-blocks      Used Available Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2    371528724 306743348  64529376    83% 76749835 16132344   83%   /
+devfs                 185       185         0   100%      646        0  100%   /dev
+/dev/disk0s4     96352140    208728  96143412     1%    52180 24035853    0%   /Volumes/Untitled 1 2
+map -hosts              0         0         0   100%        0        0  100%   /net
+map auto_home           0         0         0   100%        0        0  100%   /home
+raj:class_12dec nagee$ df -k
+Filesystem    1024-blocks      Used Available Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2    371528724 276244664  95028060    75% 69125164 23757015   74%   /
+devfs                 185       185         0   100%      646        0  100%   /dev
+/dev/disk0s4     96352140    208728  96143412     1%    52180 24035853    0%   /Volumes/Untitled 1 2
+map -hosts              0         0         0   100%        0        0  100%   /net
+map auto_home           0         0         0   100%        0        0  100%   /home
+raj:class_12dec nagee$ df -k
+Filesystem    1024-blocks      Used Available Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2    371528724 264738268 106534456    72% 66248565 26633614   71%   /
+devfs                 185       185         0   100%      646        0  100%   /dev
+/dev/disk0s4     96352140    208728  96143412     1%    52180 24035853    0%   /Volumes/Untitled 1 2
+map -hosts              0         0         0   100%        0        0  100%   /net
+map auto_home           0         0         0   100%        0        0  100%   /home
+raj:class_12dec nagee$ df -h
+Filesystem      Size   Used  Avail Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2   354Gi  252Gi  102Gi    72% 66248565 26633614   71%   /
+devfs          186Ki  186Ki    0Bi   100%      646        0  100%   /dev
+/dev/disk0s4    92Gi  204Mi   92Gi     1%    52180 24035853    0%   /Volumes/Untitled 1 2
+map -hosts       0Bi    0Bi    0Bi   100%        0        0  100%   /net
+map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
+raj:class_12dec nagee$ clesar
+-bash: clesar: command not found
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ clesar
+-bash: clesar: command not found
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ df -k
+Filesystem    1024-blocks      Used Available Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2    371528724 264727964 106544760    72% 66245989 26636190   71%   /
+devfs                 186       186         0   100%      648        0  100%   /dev
+/dev/disk0s4     96352140    208728  96143412     1%    52180 24035853    0%   /Volumes/Untitled 1 2
+map -hosts              0         0         0   100%        0        0  100%   /net
+map auto_home           0         0         0   100%        0        0  100%   /home
+raj:class_12dec nagee$ df -k
+Filesystem                                 1024-blocks      Used  Available Capacity   iused     ifree %iused  Mounted on
+/dev/disk0s2                                 371528724 314000740   57271984    85%  78564183  14317996   85%   /
+devfs                                              187       187          0   100%       648         0  100%   /dev
+/dev/disk0s4                                  96352140    208728   96143412     1%     52180  24035853    0%   /Volumes/Untitled 1 2
+map -hosts                                           0         0          0   100%         0         0  100%   /net
+map auto_home                                        0         0          0   100%         0         0  100%   /home
+//admin@MyNAS._afpovertcp._tcp.local/share  1937364900 197123028 1740241872    11%  49280755 435060468   10%   /Volumes/share
+/dev/disk1s2                                 976393176 972040616    4352560   100% 243010152   1088140  100%   /Volumes/Time Machine Backups
+raj:class_12dec nagee$ df -h
+Filesystem                                   Size   Used  Avail Capacity   iused     ifree %iused  Mounted on
+/dev/disk0s2                                354Gi  300Gi   54Gi    85%  78599885  14282294   85%   /
+devfs                                       187Ki  187Ki    0Bi   100%       648         0  100%   /dev
+/dev/disk0s4                                 92Gi  204Mi   92Gi     1%     52180  24035853    0%   /Volumes/Untitled 1 2
+map -hosts                                    0Bi    0Bi    0Bi   100%         0         0  100%   /net
+map auto_home                                 0Bi    0Bi    0Bi   100%         0         0  100%   /home
+//admin@MyNAS._afpovertcp._tcp.local/share  1.8Ti  188Gi  1.6Ti    11%  49296651 435044572   10%   /Volumes/share
+/dev/disk1s2                                931Gi  927Gi  4.2Gi   100% 243010152   1088140  100%   /Volumes/Time Machine Backups
+raj:class_12dec nagee$ df -h
+Filesystem                                   Size   Used  Avail Capacity   iused     ifree %iused  Mounted on
+/dev/disk0s2                                354Gi  312Gi   42Gi    89%  81793624  11088555   88%   /
+devfs                                       187Ki  187Ki    0Bi   100%       648         0  100%   /dev
+/dev/disk0s4                                 92Gi  204Mi   92Gi     1%     52180  24035853    0%   /Volumes/Untitled 1 2
+map -hosts                                    0Bi    0Bi    0Bi   100%         0         0  100%   /net
+map auto_home                                 0Bi    0Bi    0Bi   100%         0         0  100%   /home
+//admin@MyNAS._afpovertcp._tcp.local/share  1.8Ti  198Gi  1.6Ti    11%  51945045 432396178   11%   /Volumes/share
+/dev/disk1s2                                931Gi  927Gi  4.2Gi   100% 243010153   1088139  100%   /Volumes/Time Machine Backups
+raj:class_12dec nagee$ df -h
+Filesystem                                   Size   Used  Avail Capacity   iused     ifree %iused  Mounted on
+/dev/disk0s2                                354Gi  298Gi   57Gi    85%  78056426  14825753   84%   /
+devfs                                       188Ki  188Ki    0Bi   100%       649         0  100%   /dev
+/dev/disk0s4                                 92Gi  204Mi   92Gi     1%     52180  24035853    0%   /Volumes/Untitled 1 2
+map -hosts                                    0Bi    0Bi    0Bi   100%         0         0  100%   /net
+map auto_home                                 0Bi    0Bi    0Bi   100%         0         0  100%   /home
+//admin@MyNAS._afpovertcp._tcp.local/share  1.8Ti  198Gi  1.6Ti    11%  51945045 432396178   11%   /Volumes/share
+/dev/disk1s2                                931Gi  927Gi  4.2Gi   100% 243010146   1088146  100%   /Volumes/Time Machine Backups
+raj:class_12dec nagee$ 
+  [Restored 16 Dec 2018, 11:51:54 AM]
+Last login: Sun Dec 16 11:50:57 on console
+Restored session: Sun Dec 16 11:43:00 SGT 2018
+raj:class_12dec nagee$ 
+  [Restored 17 Dec 2018, 8:45:58 PM]
+Last login: Mon Dec 17 20:04:50 on ttys001
+Restored session: Mon Dec 17 12:08:58 SGT 2018
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ clear
+
+raj:class_12dec nagee$ 
+raj:class_12dec nagee$ pwd
+/Users/nagee/python/class_12dec
+raj:class_12dec nagee$ cd
+raj:~ nagee$ cd metaclass/
+raj:metaclass nagee$ ls -ltr
+total 8
+-rw-r--r--  1 nagee  staff  159 Dec 17 20:44 decorator.py
+raj:metaclass nagee$ 
+raj:metaclass nagee$ python3
+Python 3.6.2 (v3.6.2:5fd33b5926, Jul 16 2017, 20:11:06) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> _naga = "protected"
+>>> __raj = "private"
+>>> class Naga():
+...     balaji = "naga"
+...     def __init__(self):
+...             pass
+... 
+>>> a = Naga()
+>>> a.balaji
+'naga'
+>>> b = Naga()
+>>> b.balaji
+'naga'
+>>> Naga.balaji
+'naga'
+>>> class Naga():
+...     _balaji = "protected"
+...     __naga = "private"
+...     def __init__(self):
+...             pass
+... 
+>>> a = Naga()
+>>> a._balaji
+'protected'
+>>> a.__naga
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'Naga' object has no attribute '__naga'
+>>> Naga._balaji
+'protected'
+>>> Naga.__balaji
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: type object 'Naga' has no attribute '__balaji'
+>>> Naga.__naga
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: type object 'Naga' has no attribute '__naga'
+>>> dir(a)
+['_Naga__naga', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_balaji']
+>>> a._Naga__naga
+'private'
+>>> exit()
+raj:metaclass nagee$ ls
+classmethod.py	decorator.py	ex.py		private.py	screen1.txt
+raj:metaclass nagee$ 

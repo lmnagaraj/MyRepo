@@ -1,0 +1,290 @@
+>>> while i < 20:
+...     print("satya")
+...     i = i + 1
+...     print(i)
+...     continue
+...
+satya
+11
+satya
+12
+satya
+13
+satya
+14
+satya
+15
+satya
+16
+satya
+17
+satya
+18
+satya
+19
+satya
+20
+>>>
+>>>
+>>>
+>>> find_max = [ 34, 67, 89, 90, 45]
+>>> max(find_max)
+90
+>>> max_number = 0
+>>> for number in find_max:
+...  if number > max:
+...     max = number
+...
+>>> max
+<built-in function max>
+>>> max_number = 0
+>>> for number in find_max:
+...     if number > max_number:
+...             max_number = number
+...
+>>> max_number
+90
+>>> find_max
+[34, 67, 89, 90, 45]
+>>>
+>>>
+>>> a = 10
+>>> b = 20
+>>> if a > 0 and b > 10:
+...     print("yes both are greater")
+... else:
+...     print("something is not greater")
+...
+yes both are greater
+>>> a = -1
+>>> a
+-1
+>>> b
+20
+>>> if a > 0 and b > 10:
+...     print("yes both are greater")
+... else:
+...     print("something is not greater")
+...
+something is not greater
+>>> a = 10
+>>> b = 5
+>>> if a > 0 and b > 10:
+...     print("yes both are greater")
+... else:
+...     print("something is not greater")
+...
+something is not greater
+>>> if a > 0 or b > 10:
+...     print("yes both are greater")
+... else:
+...     print("something is not greater")
+...
+yes both are greater
+>>> b = 15
+>>> if a > 0 and b > 10:
+...     print("yes both are greater")
+... else:
+...     print("something is not greater")
+...
+yes both are greater
+>>> if not ( a > 0 and b > 10 ):
+...     print("yes both are greater")
+... else:
+...     print("something is not greater")
+...
+something is not greater
+>>> find_max
+[34, 67, 89, 90, 45]
+>>> max_number
+90
+>>> for x in max_number:
+...  if x >
+KeyboardInterrupt
+>>> second_max = 0
+>>> for x in max_number:
+...  if x > second_max and x < max_number:
+...   second_max = x
+...
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not iterable
+>>> x
+1
+>>> for xy in max_number:
+...     if xy > second_max and xy < max_number:
+...             second_max = xy
+...
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not iterable
+>>> for x in find_max:
+...     if x > second_max and x < max_number:
+...             second_max = x
+...
+>>> second_max
+89
+>>> find_max
+[34, 67, 89, 90, 45]
+>>> second_max = 0
+>>> for x in find_max:
+...     print(x, second_max)
+...     if x > second_max and x < max_number:
+...             second_max = x
+...
+(34, 0)
+(67, 34)
+(89, 67)
+(90, 89)
+(45, 89)
+>>> third_max = 0
+>>> if x > third_max and x < second_max and x < max_number
+KeyboardInterrupt
+>>>
+>>>
+>>> naga = list(range(10))
+>>> naga
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> dir(naga)
+['__add__', '__class__', '__contains__', '__delattr__', '__delitem__', '__delslice__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getslice__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__setslice__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+>>> naga.count()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: count() takes exactly one argument (0 given)
+>>> naga.count(5)
+1
+>>> naga
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> naga.append(10)
+>>> naga
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+>>> naga.append(5)
+>>> naga
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 5]
+>>> naga.count(5)
+2
+>>> raj = [ 10, 20, 30 ]
+>>> a = naga.append(raj)
+>>> b = naga.extend(raj)
+>>> a
+>>> naga
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 5, [10, 20, 30], 10, 20, 30]
+>>> a = range(10)
+>>> b = a
+>>> a
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> b
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> a.append(raj)
+>>> a
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, [10, 20, 30]]
+>>> a[-1]
+[10, 20, 30]
+>>> b
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, [10, 20, 30]]
+>>> b = range(10)
+>>> b
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> b.extend(raj)
+>>> b
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30]
+>>> a = range(10)
+>>> raj
+[10, 20, 30]
+>>> a
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> a
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> raj
+[10, 20, 30]
+>>> a + raj
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30]
+>>> satya = a + raj
+>>> satya
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30]
+>>> raj
+[10, 20, 30]
+>>> raj[0] = range(3)
+>>> raj[0][1] = range(3)
+>>> raj[0][1][2] = range(3)
+>>> raj
+[[0, [0, 1, [0, 1, 2]], 2], 20, 30]
+>>> raj.append("naga")
+>>> raj
+[[0, [0, 1, [0, 1, 2]], 2], 20, 30, 'naga']
+>>> raj[0]
+[0, [0, 1, [0, 1, 2]], 2]
+>>>
+>>>
+>>> raj = [ 10, 45, 67 ]
+>>> raj[1] = range(2)
+>>>
+>>> raj
+[10, [0, 1], 67]
+>>> len(raj)
+3
+>>> raj[0]
+10
+>>> raj[1]
+[0, 1]
+>>> raj[2]
+67
+>>> raj[1]
+[0, 1]
+>>> raj[1][0]
+0
+>>> raj[1][1]
+1
+>>> raj[1] = [ "naga", "raj" ]
+>>> raj
+[10, ['naga', 'raj'], 67]
+>>> raj[1]
+['naga', 'raj']
+>>> raj[1][0]
+'naga'
+>>> raj[1][1]
+'raj'
+>>> raj[1][0] = range(3)
+>>> raj
+[10, [[0, 1, 2], 'raj'], 67]
+>>> raj[1]
+[[0, 1, 2], 'raj']
+>>> raj[1][0]
+[0, 1, 2]
+>>> raj[1][0][1]
+1
+>>> raj
+[10, [[0, 1, 2], 'raj'], 67]
+>>> naga = [ 23, 45, 67, "naga", 8.9 ]
+>>>
+>>>
+>>> naga
+[23, 45, 67, 'naga', 8.9]
+>>> dir(naga)
+['__add__', '__class__', '__contains__', '__delattr__', '__delitem__', '__delslice__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getslice__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__setslice__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+>>> naga
+[23, 45, 67, 'naga', 8.9]
+>>> naga.insert(2, "balaji")
+>>> naga
+[23, 45, 'balaji', 67, 'naga', 8.9]
+>>> naga.pop()
+8.9
+>>> naga
+[23, 45, 'balaji', 67, 'naga']
+>>> a = naga.pop()
+>>> a
+'naga'
+>>> naga
+[23, 45, 'balaji', 67]
+>>> naga.remove(45)
+>>> naga
+[23, 'balaji', 67]
+>>>  naga.pop(1)
+KeyboardInterrupt
+>>> naga
+[23, 'balaji', 67]
+>>> naga.pop(1)
+'balaji'
+>>> naga
+[23, 67]
+>>>

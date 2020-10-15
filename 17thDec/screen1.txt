@@ -1,0 +1,1221 @@
+Last login: Mon Dec 17 20:46:03 on ttys002
+raj:metaclass nagee$ pwd
+/Users/nagee/metaclass
+raj:metaclass nagee$ vi private.py
+raj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+	def print_private(self):
+		print(self.__balaji)
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: __init__() missing 1 required positional argument: 'name'
+>>> a = Naga("nagarajan"))
+  File "<stdin>", line 1
+    a = Naga("nagarajan"))
+                         ^
+SyntaxError: invalid syntax
+>>> a = Naga("nagarajan")
+>>> a.__balaji
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'Naga' object has no attribute '__balaji'
+>>> a.print_private()
+private
+>>> dir(a)
+['_Naga__balaji', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'name', 'print_private']
+>>> a._Naga__balaji
+'private'
+>>> exit()
+raj:metaclass nagee$ ls -ltr
+total 16
+-rw-r--r--  1 nagee  staff  159 Dec 17 20:44 decorator.py
+-rw-r--r--  1 nagee  staff  131 Dec 17 20:53 private.py
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+	def print_private(self):
+		print(self.__balaji)
+	def __private_method(self):
+		print("hi i am called from private method")
+	def _protected_method(self):
+		print("hi i am called from protected")
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga("nagarajan")
+>>> a._protected_method
+<bound method Naga._protected_method of <__main__.Naga object at 0x1011bd8d0>>
+>>> a._protected_method()
+hi i am called from protected
+>>> a.__private_method()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'Naga' object has no attribute '__private_method'
+>>> dir(a)
+['_Naga__balaji', '_Naga__private_method', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_protected_method', 'name', 'print_private']
+>>> a._Naga__private_method()
+hi i am called from private method
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga("nagarajan")
+hi i am called from protected
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+	def print_private(self):
+		print(self.__balaji)
+	def __private_method(self):
+		print("hi i am called from private method")
+	def _protected_method(self):
+		print("hi i am called from protected")
+	def call_my_private(self):
+		self.__private_method()
+
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga("nagarajan")
+>>> a.call_my_private()
+hi i am called from private method
+>>> 
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: __init__() missing 1 required positional argument: 'name'
+>>> a = Naga("nagaraa"))
+  File "<stdin>", line 1
+    a = Naga("nagaraa"))
+                       ^
+SyntaxError: invalid syntax
+>>> a = Naga("nagaraa")
+hi i am called from private method
+>>> exit()
+raj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+		self.__private_method()
+	def print_private(self):
+		print(self.__balaji)
+	def __private_method(self):
+		print("hi i am called from private method")
+	def _protected_method(self):
+		print("hi i am called from protected")
+	def call_my_private(self):
+		self.__private_method()
+
+raj:metaclass nagee$ python -i private.py 
+>>> a = Naga("nagarajan")
+hi i am called from private method
+>>> a.print_private
+<bound method Naga.print_private of <__main__.Naga instance at 0x1021517e8>>
+>>> Naga.print_private
+<unbound method Naga.print_private>
+>>> Naga.print_private()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unbound method print_private() must be called with Naga instance as first argument (got nothing instead)
+>>> a.print_private()
+private
+>>> satya = Naga("Satya")
+hi i am called from private method
+>>> satya.print_private()
+private
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ 
+raj:metaclass nagee$ python private.py 
+raj:metaclass nagee$ python private.py 
+raj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+		self.__private_method()
+	def test_mymthod(self):
+		print(" i am calling from {} " .format(self.name))
+	def print_private(self):
+		print(self.__balaji)
+	def __private_method(self):
+		print("hi i am called from private method")
+	def _protected_method(self):
+		print("hi i am called from protected")
+	def call_my_private(self):
+		self.__private_method()
+
+raj:metaclass nagee$ python -i private.py 
+>>> naga = Naga("Nagarajan")
+hi i am called from private method
+>>> balaji = Naga("balaji")
+hi i am called from private method
+>>> naga.test_mymthod()
+ i am calling from Nagarajan 
+>>> balaji.test_mymthod()
+ i am calling from balaji 
+>>> Naga.test_mymthod
+<unbound method Naga.test_mymthod>
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ python -i private.py 
+>>> satya = Naga("satya")
+hi i am called from private method
+>>> exit()
+raj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+		self.__private_method()
+	def test_mymthod(cls):
+		print(" i am calling from {} " .format(self.name))
+	def print_private(self):
+		print(self.__balaji)
+	def __private_method(self):
+		print("hi i am called from private method")
+	def _protected_method(self):
+		print("hi i am called from protected")
+	def call_my_private(self):
+		self.__private_method()
+
+raj:metaclass nagee$ python -i private.py 
+>>> satya = Naga("nagarajan")
+hi i am called from private method
+>>> satya.test_mymthod
+<bound method Naga.test_mymthod of <__main__.Naga instance at 0x1062f8878>>
+>>> Naga.test_mymthod
+<unbound method Naga.test_mymthod>
+>>> Naga.test_mymthod()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unbound method test_mymthod() must be called with Naga instance as first argument (got nothing instead)
+>>> exit()
+raj:metaclass nagee$ python3 -i private.py 
+>>> naga = Naga("nagarajan")
+hi i am called from private method
+>>> Naga.test_mymthod
+<function Naga.test_mymthod at 0x1011b6bf8>
+>>> Naga.test_mymthod()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: test_mymthod() missing 1 required positional argument: 'cls'
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ python3 -i private.py 
+>>> exit()
+caraj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+		self.__private_method()
+	@classmethod
+	def test_mymthod(cls):
+		print(" i am calling from {} " .format(self.name))
+	def print_private(self):
+		print(self.__balaji)
+	def __private_method(self):
+		print("hi i am called from private method")
+	def _protected_method(self):
+		print("hi i am called from protected")
+	def call_my_private(self):
+		self.__private_method()
+
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga("nagarjan")
+hi i am called from private method
+>>> a.test_mymthod
+<bound method Naga.test_mymthod of <class '__main__.Naga'>>
+>>> Naga.test_mymthod
+<bound method Naga.test_mymthod of <class '__main__.Naga'>>
+>>> a.test_mymthod()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "private.py", line 8, in test_mymthod
+    print(" i am calling from {} " .format(self.name))
+NameError: name 'self' is not defined
+>>> Naga.test_mymthod()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "private.py", line 8, in test_mymthod
+    print(" i am calling from {} " .format(self.name))
+NameError: name 'self' is not defined
+>>> exit()
+raj:metaclass nagee$ python3 -i private.py 
+^[[B>>> 
+KeyboardInterrupt
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga("nagarjan")
+hi i am called from private method
+>>> a.test_mymthod
+<bound method Naga.test_mymthod of <class '__main__.Naga'>>
+>>> a.test_mymthod()
+ i am calling from 
+>>> Naga.test_mymthod()
+ i am calling from 
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+		self.__private_method()
+	@classmethod
+	def test_mymthod(cls):
+		print(" i am calling from {} " .format(cls))
+	def print_private(self):
+		print(self.__balaji)
+	def __private_method(self):
+		print("hi i am called from private method")
+	def _protected_method(self):
+		print("hi i am called from protected")
+	def call_my_private(self):
+		self.__private_method()
+
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga("nagarajan")
+hi i am called from private method
+>>> a.test_mymthod()
+ i am calling from <class '__main__.Naga'> 
+>>> Naga.test_mymthod()
+ i am calling from <class '__main__.Naga'> 
+>>> exit()
+raj:metaclass nagee$ vi private.py 
+raj:metaclass nagee$ cat private.py 
+class Naga():
+	__balaji = "private"
+	def __init__(self, name):
+		self.name = name
+		self.__private_method()
+	@classmethod
+	def test_mymthod(cls):
+		print(" i am calling from {} " .format(cls))
+	@staticmethod
+	def test_mystatic():
+		print("i am from Static method")
+	def print_private(self):
+		print(self.__balaji)
+	def __private_method(self):
+		print("hi i am called from private method")
+	def _protected_method(self):
+		print("hi i am called from protected")
+	def call_my_private(self):
+		self.__private_method()
+
+raj:metaclass nagee$ python3 -i private.py 
+>>> a = Naga("nagarajan")
+hi i am called from private method
+>>> a.test_mystatic
+<function Naga.test_mystatic at 0x1011b6c80>
+>>> a.test_mystatic()
+i am from Static method
+>>> Naga.test_mystatic
+<function Naga.test_mystatic at 0x1011b6c80>
+>>> Naga.test_mystatic()
+i am from Static method
+>>> exit()
+raj:metaclass nagee$ vi classmethod.py
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	def add_instances(self):
+		self.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> a.print_total
+<bound method Naga.print_total of <__main__.Naga object at 0x1011bd8d0>>
+>>> a.print_total()
+The total instances are 1 
+>>> b = Naga()
+>>> b.print_total()
+The total instances are 1 
+>>> exit()
+raj:metaclass nagee$ vi classmethod.py
+raj:metaclass nagee$ python3 -i classmethod.py 
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	def add_instances(self):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+raj:metaclass nagee$ python3 -i  classmethod.py 
+>>> a = Naga()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "classmethod.py", line 4, in __init__
+    self.add_instances()
+  File "classmethod.py", line 7, in add_instances
+    cls.total_instances += 1
+NameError: name 'cls' is not defined
+>>> exit()
+raj:metaclass nagee$ vi classmethod.py
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> a.print_total
+<bound method Naga.print_total of <__main__.Naga object at 0x1011bd908>>
+>>> a.print_total()
+The total instances are 1 
+>>> b = Naga()
+>>> a.print_total()
+The total instances are 2 
+>>> b.print_total()
+The total instances are 2 
+>>> c = Naga()
+>>> b.print_total()
+The total instances are 3 
+>>> c.print_total()
+The total instances are 3 
+>>> lass Naga():
+  File "<stdin>", line 1
+    lass Naga():
+            ^
+SyntaxError: invalid syntax
+>>>     total_instances = 0
+  File "<stdin>", line 1
+    total_instances = 0
+    ^
+IndentationError: unexpected indent
+>>>     def __init__(self):
+  File "<stdin>", line 1
+    def __init__(self):
+    ^
+IndentationError: unexpected indent
+>>>             self.add_instances()
+  File "<stdin>", line 1
+    self.add_instances()
+    ^
+IndentationError: unexpected indent
+>>> 
+>>>     @classmethod
+  File "<stdin>", line 1
+    @classmethod
+    ^
+IndentationError: unexpected indent
+>>>     def add_instances(cls):
+  File "<stdin>", line 1
+    def add_instances(cls):
+    ^
+IndentationError: unexpected indent
+>>>             cls.total_instances += 1
+  File "<stdin>", line 1
+    cls.total_instances += 1
+    ^
+IndentationError: unexpected indent
+>>> 
+>>> lass Naga():
+  File "<stdin>", line 1
+    lass Naga():
+            ^
+SyntaxError: invalid syntax
+>>>     total_instances = 0
+  File "<stdin>", line 1
+    total_instances = 0
+    ^
+IndentationError: unexpected indent
+>>>     def __init__(self):
+  File "<stdin>", line 1
+    def __init__(self):
+    ^
+IndentationError: unexpected indent
+>>>             self.add_instances()
+  File "<stdin>", line 1
+    self.add_instances()
+    ^
+IndentationError: unexpected indent
+>>> 
+>>>     @classmethod
+  File "<stdin>", line 1
+    @classmethod
+    ^
+IndentationError: unexpected indent
+>>>     def add_instances(cls):
+  File "<stdin>", line 1
+    def add_instances(cls):
+    ^
+IndentationError: unexpected indent
+>>>             cls.total_instances += 1
+  File "<stdin>", line 1
+    cls.total_instances += 1
+    ^
+IndentationError: unexpected indent
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> exit()
+craj:metaclass nagee$ clear
+
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+		pass
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Naga()
+>>> c = Raj()
+>>> a.print_total()
+The total instances are 2 
+>>> c.print_total
+<bound method Naga.print_total of <__main__.Raj object at 0x1011bd9b0>>
+>>> c.print_total()
+The total instances are 3 
+>>> exit()
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	super().__init__()
+raj:metaclass nagee$ 
+raj:metaclass nagee$ python3 -i classmethod.py 
+Traceback (most recent call last):
+  File "classmethod.py", line 13, in <module>
+    class Raj(Naga):
+  File "classmethod.py", line 15, in Raj
+    super().__init__()
+RuntimeError: super(): no arguments
+>>> exit()
+raj:metaclass nagee$ vi 
+.decorator.py.swp  classmethod.py     decorator.py       private.py         
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Naga()
+>>> c = Raj()
+>>> c.print_total()
+The total instances are 1 
+>>> b.print_total()
+The total instances are 2 
+>>> exit()
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+>>> c = lakshmi()
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+>>> c.__mro__
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'lakshmi' object has no attribute '__mro__'
+>>> dir(Naga)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+>>> exit()
+raj:metaclass nagee$ python2 -i classmethod.py 
+-bash: python2: command not found
+raj:metaclass nagee$ python -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "classmethod.py", line 16, in __init__
+    super().__init__()
+TypeError: super() takes at least 1 argument (0 given)
+>>> dir(a)
+['__doc__', '__init__', '__module__', 'add_instances', 'print_total', 'total_instances']
+>>> exit()
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ cat ex.py 
+class Naga():
+	__slots__ = [ 'x', 'y', 'z' ]
+	def __init__(self, x, y, z):
+		for x in __slots__:
+			setattr(self, x, x)
+raj:metaclass nagee$ python3 -i ex.py 
+>>> a = Naga("adsjkgh", 10, 20)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "ex.py", line 4, in __init__
+    for x in __slots__:
+NameError: name '__slots__' is not defined
+>>> c = lakshmi()
+KeyboardInterrupt
+>>> exit()
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ python3 -i ex.py 
+>>> a = Naga(10, 12, 13)
+>>> a.x
+'x'
+>>> a.y
+'y'
+>>> a.z
+'z'
+>>> a
+<__main__.Naga object at 0x1011c7ac8>
+>>> isinstance(Naga, a)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: isinstance() arg 2 must be a type or tuple of types
+>>> isinstance(a, Naga)
+True
+>>> issubclass(Naga, Raj)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'Raj' is not defined
+>>> 
+>>> 
+>>> exit()
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ 
+raj:metaclass nagee$ 
+raj:metaclass nagee$ 
+raj:metaclass nagee$ 
+raj:metaclass nagee$ raj:metaclass nagee$ python3 -i classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ Traceback (most recent call last):
+-bash: syntax error near unexpected token `most'
+raj:metaclass nagee$   File "classmethod.py", line 13, in <module>
+-bash: syntax error near unexpected token `newline'
+raj:metaclass nagee$     class Raj(Naga):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$   File "classmethod.py", line 15, in Raj
+classmethod.py,: cannot open `classmethod.py,' (No such file or directory)
+line:            cannot open `line' (No such file or directory)
+15,:             cannot open `15,' (No such file or directory)
+in:              cannot open `in' (No such file or directory)
+Raj:             cannot open `Raj' (No such file or directory)
+raj:metaclass nagee$     super().__init__()
+-bash: syntax error near unexpected token `.__init__'
+raj:metaclass nagee$ RuntimeError: super(): no arguments
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ >>> exit()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ raj:metaclass nagee$ vi 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ .decorator.py.swp  classmethod.py     decorator.py       private.py         
+-bash: .decorator.py.swp: command not found
+raj:metaclass nagee$ raj:metaclass nagee$ vi classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ raj:metaclass nagee$ python3 -i classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ >>> a = Naga()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ >>> b = Naga()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ >>> c = Raj()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ >>> c.print_total()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ The total instances are 1 
+-bash: The: command not found
+raj:metaclass nagee$ >>> b.print_total()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ The total instances are 2 
+-bash: The: command not found
+raj:metaclass nagee$ >>> exit()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ raj:metaclass nagee$ cat classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ class Naga():
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+>>> c = lakshmi()
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__ini-bash: total_instances: command not found
+raj:metaclass nagee$ def __init__(self):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ 
+Display all 1543 possibilities? (y or n)
+raj:metaclass nagee$ stances()
+> 
+> @classmethod
+-bash: syntax error near unexpected token `@classmethod'
+raj:metaclass nagee$ def add_instances(cls):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ 
+Display all 1543 possibilities? (y or n)
+raj:metaclass nagee$ stances += 1
+-bash: stances: command not found
+raj:metaclass nagee$ 
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+>>> c = lakshmi()
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setraj:metaclass nagee$ def print_total(self):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ 
+Display all 1543 possibilities? (y or n)
+raj:metaclass nagee$ t("The total instances are {} " .format(self.total_instances))
+-bash: syntax error near unexpected token `"The total instances are {} "'
+raj:metaclass nagee$ 
+raj:metaclass nagee$ class Raj(Naga):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ total_instances = 0
+	def __init__(self):
+		super().__init__()
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+>>> c = lakshmi()
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+>>> c.__mro__
+T-bash: total_instances: command not found
+raj:metaclass nagee$ def __init__(self):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ 
+Display all 1543 possibilities? (y or n)
+raj:metaclass nagee$ it__()
+> raj:metaclass nagee$ vi classmethod.py 
+-bash: syntax error near unexpected token `raj:metaclass'
+raj:metaclass nagee$ raj:metaclass nagee$ cat classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ class Naga():
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+>>> c = lakshmi()
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+>>> c.__mro__
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'lakshmi' object has no attribute '__mro__'
+>>> dir(Naga)
+['__class__', -bash: total_instances: command not found
+raj:metaclass nagee$ def __init__(self):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ 
+Display all 1543 possibilities? (y or n)
+raj:metaclass nagee$ stances()
+> 
+> @classmethod
+-bash: syntax error near unexpected token `@classmethod'
+raj:metaclass nagee$ def add_instances(cls):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ 
+Display all 1543 possibilities? (y or n)
+raj:metaclass nagee$ stances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+>>> c = lakshmi()
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+>>> c.__mro__
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'lakshmi' object has no attribute '__mro__'
+>>> dir(Naga)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__h-bash: stances: command not found
+raj:metaclass nagee$ 
+raj:metaclass nagee$ def print_total(self):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ 
+Display all 1543 possibilities? (y or n)
+raj:metaclass nagee$ t("The total instances are {} " .format(self.total_instances))
+-bash: syntax error near unexpected token `"The total instances are {} "'
+raj:metaclass nagee$ 
+raj:metaclass nagee$ class Raj(Naga):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ total_instances = 0
+-bash: total_instances: command not found
+raj:metaclass nagee$ def __init__(self):
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ 
+Display all 1543 possibilities? (y or n)
+raj:metaclass nagee$ it__()
+> 
+> class lakshmi(Raj, Naga):
+-bash: syntax error near unexpected token `class'
+raj:metaclass nagee$ pass
+raj:metaclass nagee$ python3 -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+>>> c = lakshmi()
+>>> dir(a)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+>>> c.__mro__
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'lakshmi' object has no attribute '__mro__'
+>>> dir(Naga)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_-bash: pass: command not found
+raj:metaclass nagee$ raj:metaclass nagee$ python3 -i classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ >>> a = Naga()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ >>> b = Raj()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ >>> c = lakshmi()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ >>> dir(a)
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+-bash: [__class__,: command not found
+raj:metaclass nagee$ >>> c.__mro__
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ Traceback (most recent call last):
+-bash: syntax error near unexpected token `most'
+raj:metaclass nagee$   File "<stdin>", line 1, in <module>
+-bash: syntax error near unexpected token `newline'
+AttributeError: 'lakshmi' object has no attribute '__mro__'
+>>> dir(Naga)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+>>> exit()
+raj:metaclass nagee$ python2 -i classmethod.py 
+-bash: python2: command not found
+raj:metaclass nagee$ python -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "classmethod.py", line 16, in __init__
+    super().__init__()
+TypeError: super() takes at least 1 argument (0 given)
+>>> dir(a)
+['__doc__', '__init__', '__module__', 'add_instances', 'print_total', 'total_instances']
+>>> exit()
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	toraj:metaclass nagee$ AttributeError: 'lakshmi' object has no attribute '__mro__'
+-bash: AttributeError:: command not found
+raj:metaclass nagee$ >>> dir(Naga)
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_instances', 'print_total', 'total_instances']
+-bash: [__class__,: command not found
+>>> exit()
+raj:metaclass nagee$ python2 -i classmethod.py 
+-bash: python2: command not found
+raj:metaclass nagee$ python -i classmethod.py 
+>>> a = Naga()
+>>> b = Raj()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "classmethod.py", line 16, in __init__
+    super().__init__()
+TypeError: super() takes at least 1 argument (0 given)
+>>> dir(a)
+['__doc__', '__init__', '__module__', 'add_instances', 'print_total', 'total_instances']
+>>> exit()
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ cat ex.py 
+class Naga():raj:metaclass nagee$ >>> exit()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ raj:metaclass nagee$ python2 -i classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ -bash: python2: command not found
+-bash: -bash:: command not found
+raj:metaclass nagee$ raj:metaclass nagee$ python -i classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ >>> a = Naga()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ >>> b = Raj()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ Traceback (most recent call last):
+-bash: syntax error near unexpected token `most'
+  File "<stdin>", line 1, in <module>
+  File "classmethod.py", line 16, in __init__
+    super().__init__()
+TypeError: super() takes at least 1 argument (0 given)
+>>> dir(a)
+['__doc__', '__init__', '__module__', 'add_instances', 'print_total', 'total_instances']
+>>> exit()
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ cat ex.py 
+class Naga():
+	__slots__ = [ 'x', 'y', 'z' ]
+	def __init__(self, x, y, z):
+		for x in __slots__:
+			setattr(self, x, x)
+raj:metaclass nagee$ python3 -i ex.py 
+>>> a = Naga("adsjkgh", 10, 20)
+Traceback (most recent calraj:metaclass nagee$   File "<stdin>", line 1, in <module>
+-bash: syntax error near unexpected token `newline'
+raj:metaclass nagee$   File "classmethod.py", line 16, in __init__
+classmethod.py,: cannot open `classmethod.py,' (No such file or directory)
+line:            cannot open `line' (No such file or directory)
+16,:             cannot open `16,' (No such file or directory)
+in:              cannot open `in' (No such file or directory)
+__init__:        cannot open `__init__' (No such file or directory)
+raj:metaclass nagee$     super().__init__()
+-bash: syntax error near unexpected token `.__init__'
+raj:metaclass nagee$ TypeError: super() takes at least 1 argument (0 given)
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ >>> dir(a)
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ ['__doc__', '__init__', '__module__', 'add_instances', 'print_total', 'total_instances']
+>>> exit()
+raj:metaclass nagee$ cat classmethod.py 
+class Naga():
+	total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ cat ex.py 
+class Naga():
+	__slots__ = [ 'x', 'y', 'z' ]
+	def __init__(self, x, y, z):
+		for x in __slots__:
+			setattr(self, x, x)
+raj:metaclass nagee$ python3 -i ex.py 
+>>> a = Naga("adsjkgh", 10, 20)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "ex.py", line 4, in __init__
+    for x in __slots__:
+NameError: name '__slots__' is not defined
+>>> c = lakshmi()
+KeyboardInterrupt
+>>> exit()
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ python3 -i -bash: [__doc__,: command not found
+raj:metaclass nagee$ >>> exit()
+-bash: syntax error near unexpected token `>'
+raj:metaclass nagee$ raj:metaclass nagee$ cat classmethod.py 
+-bash: raj:metaclass: command not found
+raj:metaclass nagee$ class Naga():
+-bash: syntax error near unexpected token `('
+raj:metaclass nagee$ total_instances = 0
+	def __init__(self):
+		self.add_instances()
+
+	@classmethod
+	def add_instances(cls):
+		cls.total_instances += 1
+
+	def print_total(self):
+		print("The total instances are {} " .format(self.total_instances))
+
+class Raj(Naga):
+	total_instances = 0
+	def __init__(self):
+		super().__init__()
+
+class lakshmi(Raj, Naga):
+	pass
+raj:metaclass nagee$ vi classmethod.py 
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ cat ex.py 
+class Naga():
+	__slots__ = [ 'x', 'y', 'z' ]
+	def __init__(self, x, y, z):
+		for x in __slots__:
+			setattr(self, x, x)
+raj:metaclass nagee$ python3 -i ex.py 
+>>> a = Naga("adsjkgh", 10, 20)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "ex.py", line 4, in __init__
+    for x in __slots__:
+NameError: name '__slots__' is not defined
+>>> c = lakshmi()
+KeyboardInterrupt
+>>> exit()
+raj:metaclass nagee$ vi ex.py
+raj:metaclass nagee$ python3 -i ex.py 
+>>> a = Naga(10, 12, 13)
+>>> a.x
+'x'
+>>> a.y
+'y'
+>>> a.z
+'z'

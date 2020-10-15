@@ -1,0 +1,163 @@
+Intro
+First of all, to clear up any confusion: the AMIs are not encrypted. An AMI is simply a bit of metadata, which stores information like machine architecture, virtualisation type and a list of snapshots and volumes to be created from those snapshots. None of that data is sensitive in any way. The snapshots themselves, which actually hold the data, can (and should) be encrypted.
+
+AWS allows you to share an AMI with non-encrypted snapshots with other AWS accounts. Other accounts do not actually have to “store” a copy of that AMI. Your “source account” (the owner of the AMI) can grant “launch permissions” to other accounts, which will let them launch EC2 instances from the granted AMI, without actually holding the data. This has impact from billing perspective, since the owner account will be charged for snapshot storage, but the other accounts will not. If the owner account deletes the AMI, however, it will disappear for other accounts (though any already running instances will not be terminated!). If required, a full-blown copy of the AMI (with all the snapshot data) can be created for another account – simply select the AMI and choose “Copy AMI” in the Console. This will preserve the AMI on other accounts, even if it’s deleted on the original one, but both accounts will now be charged for snapshot storage.
+
+With encryption, this gets a bit more complicated. For AWS-known reasons, launch permissions cannot be granted on AMIs with encrypted snapshots. That means the “target” account needs to get the copy of the original snapshots in order to use them (i.e. will be billed for storage of those as well). To add to this, “Copy AMI” feature (which would be an easy solution) cannot be used with AMIs which use encrypted snapshots. Instead, you need to share the actual snapshot, create a copy from it on the target account and re-create the AMI (which is, again, essentially just a bunch of metadata, so not hard to replicate).
+
+Prerequisite – Use custom KMS key for your snapshot
+Each snapshot is encrypted with a KMS key. By default, when you first try to encrypt something, AWS will create a “default” key for that service. To see the list of your KMS keys, go to AWS Console, IAM and click on “Encryption keys” at the bottom of the menu on the left hand side (check the region at the top of the list). Any key starting with “aws/” (for example “aws/ebs”) is the default KMS key for that service. It will also have the orange AWS cube next to it.
+
+In order for a snapshot to be shareable, it needs to be encrypted with a non-default KMS key. That is because, this key needs to be shared with the target account (so it can decrypt the data!). It would be generally a bad idea to share the default key with anyone, therefore you need to create another one. When creating a key, you can share it immediately with the other account – in the Console, Step 4 : Define Key Usage Permissions allows you to put in account ID of any other AWS account that should have access to this key. You can also add those later, by selecting the key and scrolling down to External Accounts.
+
+Once you have the non-default key, use it to encrypt your snapshots.
+
+Let’s share!
+Once you have an AMI with snapshots encrypted using the non-default key (and the key is shared with the target account), you can copy it to the target account. The general steps are as follow:
+
+Grant “create volume” permissions to the target account
+Create an owned copy of the snapshot on the target account
+Create a new AMI using the newly copied snapshot
+That’s it!
+
+Automating
+In general, this process is annoying to perform manually, so it’s best to automate it. The script below performs the above steps (and a couple of optional ones) for you.
+
+from sys import argv
+
+import boto3
+
+TARGET_ACCOUNT_ID = 'xxxxx'
+ROLE_ON_TARGET_ACCOUNT = 'arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME'
+SOURCE_REGION = 'eu-west-1'
+TARGET_REGION = 'eu-west-1'
+
+
+def role_arn_to_session(**args):
+    """
+    Lets you assume a role and returns a session ready to use
+    Usage :
+        session = role_arn_to_session(
+            RoleArn='arn:aws:iam::012345678901:role/example-role',
+            RoleSessionName='ExampleSessionName')
+        client = session.client('sqs')
+    """
+    client = boto3.client('sts')
+    response = client.assume_role(**args)
+    return boto3.Session(
+        aws_access_key_id=response['Credentials']['AccessKeyId'],
+        aws_secret_access_key=response['Credentials']['SecretAccessKey'],
+        aws_session_token=response['Credentials']['SessionToken'])
+
+
+if len(argv) != 2:
+    print('usage: share-ami.py [ami]')
+    exit(1)
+
+source_ec2 = boto3.resource('ec2')
+source_ami = source_ec2.Image(argv[1])
+
+source_snapshot = source_ec2.Snapshot(source_ami.block_device_mappings[0]['Ebs']['SnapshotId'])
+
+# Ensure the snapshot is shared with target account
+source_sharing = source_snapshot.describe_attribute(Attribute='createVolumePermission')
+if source_sharing['CreateVolumePermissions'] \
+        and source_sharing['CreateVolumePermissions'][0]['UserId'] != TARGET_ACCOUNT_ID:
+    print("Snapshot already shared with account, creating a copy")
+else:
+    print("Sharing with target account")
+    source_snapshot.modify_attribute(
+        Attribute='createVolumePermission',
+        OperationType='add',
+        UserIds=[TARGET_ACCOUNT_ID]
+    )
+
+# Get session with target account
+target_session = role_arn_to_session(
+    RoleArn=ROLE_ON_TARGET_ACCOUNT,
+    RoleSessionName='share-admin-temp-session'
+)
+target_ec2 = target_session.resource('ec2', region_name=TARGET_REGION)
+
+# A shared snapshot, owned by source account
+shared_snapshot = target_ec2.Snapshot(source_ami.block_device_mappings[0]['Ebs']['SnapshotId'])
+
+# Ensure source snapshot is completed, cannot be copied otherwise
+if shared_snapshot.state != "completed":
+    print("Shared snapshot not in completed state, got: " + shared_snapshot.state)
+    exit(1)
+
+# Create a copy of the shared snapshot on the target account
+copy = shared_snapshot.copy(
+    SourceRegion=SOURCE_REGION,
+    Encrypted=True,
+)
+
+# Wait for the copy to complete
+copied_snapshot = target_ec2.Snapshot(copy['SnapshotId'])
+copied_snapshot.wait_until_completed()
+
+print("Created target-owned copy of shared snapshot with id: " + copy['SnapshotId'])
+
+# Optional: tag the created snapshot
+# copied_snapshot.create_tags(
+#     Tags=[
+#         {
+#             'Key': 'cost_centre',
+#             'Value': 'project abc',
+#         },
+#     ]
+# )
+
+# Create an AMI from the snapshot.
+# Modify the below if your configuration differs
+new_image = target_ec2.register_image(
+    Name='copy-' + copied_snapshot.snapshot_id,
+    Architecture='x86_64',
+    RootDeviceName='/dev/sda1',
+    BlockDeviceMappings=[
+        {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+                "SnapshotId": copied_snapshot.snapshot_id,
+                "VolumeSize": copied_snapshot.volume_size,
+                "DeleteOnTermination": True,
+                "VolumeType": "gp2"
+            },
+        }
+    ],
+    VirtualizationType='hvm'
+)
+
+print("New AMI created: " + new_image)
+
+# Optional: tag the created AMI
+# new_image.create_tags(
+#     Tags=[
+#         {
+#             'Key': 'cost_centre',
+#             'Value': 'project abc',
+#         },
+#     ]
+# )
+
+# Optional: Remove old snapshot and image
+# source_ami.deregister()
+# source_snapshot.delete()
+This script assumes that your default AWS credentials are configured to work with the source account and that an IAM Role is created on the target account that can be assumed from the source account. You can also modify the code to replace the target_session with a separate connection, for example using a different configured profile. If you do want to use the code as is, create a role on the target account: Console – IAM – Roles – Create role – Another AWS Account – input the ID of the source account. You can use the following policy to grant the necessary permissions to the role:
+
+{
+            "Sid": "Stmt1499196775000",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CopySnapshot",
+                "ec2:CreateTags",
+                "ec2:RegisterImage",
+                "ec2:Describe*",
+                "kms:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+Don’t forget to also adjust the settings (role name, region, target account id) on the top of the script. The code will create a basic 64-bit AMI using HVM and a single (root) volume from the copied snapshot. If you want to use a different architecture or all more volumes, you can adjust the code as needed – modify the new_image = target_ec2.register_image, possible options are listed in boto3 documentation.
